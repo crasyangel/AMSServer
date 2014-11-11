@@ -1,0 +1,118 @@
+C:\OpenSSL-Win32\bin>set OPENSSL_CONF=openssl.cnf
+
+C:\OpenSSL-Win32\bin>openssl genrsa -out ca/ca-key.pem 1024
+ca/ca-key.pem: No such file or directory
+8900:error:02001003:system library:fopen:No such process:.\crypto\bio\bss_file.c:398:fopen('ca/ca-key.pem','wb')
+8900:error:20074002:BIO routines:FILE_CTRL:system lib:.\crypto\bio\bss_file.c:400:
+
+C:\OpenSSL-Win32\bin>openssl genrsa -out ca/ca-key.pem 1024
+Loading 'screen' into random state - done
+Generating RSA private key, 1024 bit long modulus
+.............++++++
+....................++++++
+e is 65537 (0x10001)
+
+C:\OpenSSL-Win32\bin>openssl req -new -out ca/ca-req.csr -key ca/ca-key.pem
+Loading 'screen' into random state - done
+You are about to be asked to enter information that will be incorporated
+into your certificate request.
+What you are about to enter is what is called a Distinguished Name or a DN.
+There are quite a few fields but you can leave some blank
+For some fields there will be a default value,
+If you enter '.', the field will be left blank.
+-----
+Country Name (2 letter code) [AU]:CN
+State or Province Name (full name) [Some-State]:Beijing
+Locality Name (eg, city) []:Beijing
+Organization Name (eg, company) [Internet Widgits Pty Ltd]:sumavision
+Organizational Unit Name (eg, section) []:RD.DEPT10
+Common Name (e.g. server FQDN or YOUR name) []:AMS_Suma_Server
+Email Address []:gaoyan@sumavision.cc
+
+Please enter the following 'extra' attributes
+to be sent with your certificate request
+A challenge password []:
+An optional company name []:
+
+C:\OpenSSL-Win32\bin>openssl x509 -req -in ca/ca-req.csr -out ca/ca-cert.pem -signkey ca/ca-key.pem -days 3650
+Loading 'screen' into random state - done
+Signature ok
+subject=/C=CN/ST=Beijing/L=Beijing/O=sumavision/OU=RD.DEPT10/CN=AMS_Suma_Server/emailAddress=gaoyan@sumavision.cc
+Getting Private key
+
+C:\OpenSSL-Win32\bin>openssl genrsa -out server/server-key.pem 1024
+Loading 'screen' into random state - done
+Generating RSA private key, 1024 bit long modulus
+.......................................................++++++
+..++++++
+e is 65537 (0x10001)
+
+C:\OpenSSL-Win32\bin>openssl req -new -out server/server-req.csr -key server/server-key.pem
+Loading 'screen' into random state - done
+You are about to be asked to enter information that will be incorporated
+into your certificate request.
+What you are about to enter is what is called a Distinguished Name or a DN.
+There are quite a few fields but you can leave some blank
+For some fields there will be a default value,
+If you enter '.', the field will be left blank.
+-----
+Country Name (2 letter code) [AU]:CN
+State or Province Name (full name) [Some-State]:Beijing
+Locality Name (eg, city) []:Beijing
+Organization Name (eg, company) [Internet Widgits Pty Ltd]:sumavision
+Organizational Unit Name (eg, section) []:RD.DEPT10
+Common Name (e.g. server FQDN or YOUR name) []:AMS_Suma_Server
+Email Address []:gaoyan@sumavision.cc
+
+Please enter the following 'extra' attributes
+to be sent with your certificate request
+A challenge password []:
+An optional company name []:
+
+C:\OpenSSL-Win32\bin>openssl x509 -req -in server/server-req.csr -out server/server-cert.pem -signkey server/server-key.
+pem -CA ca/ca-cert.pem -CAkey ca/ca-key.pem -CAcreateserial -days 3650
+Loading 'screen' into random state - done
+Signature ok
+subject=/C=CN/ST=Beijing/L=Beijing/O=sumavision/OU=RD.DEPT10/CN=AMS_Suma_Server/emailAddress=gaoyan@sumavision.cc
+Getting Private key
+Getting CA Private Key
+
+C:\OpenSSL-Win32\bin>openssl genrsa -out client/client-key.pem 1024
+Loading 'screen' into random state - done
+Generating RSA private key, 1024 bit long modulus
+.................++++++
+..............++++++
+e is 65537 (0x10001)
+
+C:\OpenSSL-Win32\bin>openssl req -new -out client/client-req.csr -key client/client-key.pem
+Loading 'screen' into random state - done
+You are about to be asked to enter information that will be incorporated
+into your certificate request.
+What you are about to enter is what is called a Distinguished Name or a DN.
+There are quite a few fields but you can leave some blank
+For some fields there will be a default value,
+If you enter '.', the field will be left blank.
+-----
+Country Name (2 letter code) [AU]:CN
+State or Province Name (full name) [Some-State]:Beijing
+Locality Name (eg, city) []:Beijing
+Organization Name (eg, company) [Internet Widgits Pty Ltd]:sumavision
+Organizational Unit Name (eg, section) []:RD.DEPT10
+Common Name (e.g. server FQDN or YOUR name) []:AMS_Suma_Server
+Email Address []:gaoyan@sumavision.cc
+
+Please enter the following 'extra' attributes
+to be sent with your certificate request
+A challenge password []:
+An optional company name []:
+
+C:\OpenSSL-Win32\bin>
+C:\OpenSSL-Win32\bin>openssl x509 -req -in client/client-req.csr -out client/client-cert.pem -signkey client/client-key.
+pem -CA ca/ca-cert.pem -CAkey ca/ca-key.pem -CAcreateserial -days 3650
+Loading 'screen' into random state - done
+Signature ok
+subject=/C=CN/ST=Beijing/L=Beijing/O=sumavision/OU=RD.DEPT10/CN=AMS_Suma_Server/emailAddress=gaoyan@sumavision.cc
+Getting Private key
+Getting CA Private Key
+
+C:\OpenSSL-Win32\bin>
